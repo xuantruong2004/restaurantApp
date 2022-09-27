@@ -9,11 +9,12 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { app } from '../firebase.config';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
+import { useEffect } from 'react';
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartItems }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
 
   const login = async () => {
@@ -42,6 +43,13 @@ const Header = () => {
     dispatch({
       type: actionType.SET_USER,
       user: null,
+    });
+  };
+
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: true,
     });
   };
 
@@ -75,12 +83,18 @@ const Header = () => {
               Service
             </li>
           </motion.ul>
-          <div className="relative flex items-center justify-center ">
+          <motion.div
+            whileTap={{ scale: 0.75 }}
+            className="relative flex items-center justify-center cursor-pointer"
+            onClick={showCart}
+          >
             <MdShoppingBasket className="text-textColor text-2xl " />
-            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-              <p className="text-xs text-white font-semibold">2</p>
-            </div>
-          </div>
+            {cartItems?.length > 0 && (
+              <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                <p className="text-xs text-white font-semibold">{cartItems.length}</p>
+              </div>
+            )}
+          </motion.div>
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.6 }}
@@ -130,12 +144,18 @@ const Header = () => {
         </Link>
 
         <div className="relative flex ">
-          <div className="relative flex items-center justify-center mr-3 ">
+          <motion.div
+            whileTap={{ scale: 0.75 }}
+            className="relative flex items-center justify-center mr-3 "
+            onClick={showCart}
+          >
             <MdShoppingBasket className="text-textColor text-2xl " />
-            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-              <p className="text-xs text-white font-semibold">2</p>
-            </div>
-          </div>
+            {cartItems?.length > 0 && (
+              <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                <p className="text-xs text-white font-semibold">{cartItems.length}</p>
+              </div>
+            )}
+          </motion.div>
 
           <motion.img
             whileTap={{ scale: 0.6 }}
