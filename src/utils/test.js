@@ -8,6 +8,7 @@ const cartItems = [
 
 const Total = cartItems.reduce((prevs, cartItem) => {
   const isInclude = prevs.find((prev) => prev?.id === cartItem.id);
+
   isInclude ? (isInclude.qty += 1) : prevs.push(cartItem);
   return prevs;
 }, []);
