@@ -101,6 +101,9 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
         setMsg('dang nhap thanh cong');
         setAlertStatus('success');
         console.log('dang nhap thanh cong');
+        setTimeout(() => {
+          showModal();
+        }, 1000);
       } else {
         setField(true);
         setMsg('mat khau ko dung xin nhap lai');
