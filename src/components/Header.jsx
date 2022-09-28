@@ -1,34 +1,63 @@
 import React, { useState } from 'react';
 import { MdShoppingBasket, MdAdd, MdLogout } from 'react-icons/md';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '../img/logo.png';
 import Avatar from '../img/avatar.png';
 import { Link } from 'react-router-dom';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { app } from '../firebase.config';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
 import { useEffect } from 'react';
+import Login from './Login';
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const faceProvider = new FacebookAuthProvider();
   const [{ user, cartItems }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
+  const [modal, setModal] = useState(false);
 
-  const login = async () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  const loginGoogle = async () => {
     if (!user) {
       try {
         const {
           user: { providerData, refreshToken },
-        } = await signInWithPopup(firebaseAuth, provider);
+        } = await signInWithPopup(firebaseAuth, googleProvider);
 
         dispatch({
           type: actionType.SET_USER,
           user: providerData[0],
         });
         localStorage.setItem('user', JSON.stringify(providerData[0]));
+        setModal(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setIsMenu((prev) => !prev);
+    }
+  };
+
+  const loginFacebook = async () => {
+    if (!user) {
+      try {
+        const {
+          user: { providerData, refreshToken },
+        } = await signInWithPopup(firebaseAuth, faceProvider);
+        console.log(providerData);
+
+        dispatch({
+          type: actionType.SET_USER,
+          user: providerData[0],
+        });
+        localStorage.setItem('user', JSON.stringify(providerData[0]));
+        setModal(false);
       } catch (error) {
         console.log(error);
       }
@@ -53,8 +82,28 @@ const Header = () => {
     });
   };
 
+  const showModal = () => {
+    setModal((prev) => !prev);
+    console.log('ShowModal');
+  };
+  const handleScrollY = () => {
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    setScrollY(scrollY);
+  };
+
+  useEffect(() => {
+    handleScrollY();
+    window.addEventListener('scroll', handleScrollY);
+    return () => {
+      window.removeEventListener('scroll', handleScrollY);
+    };
+  }, []);
   return (
-    <header className="fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary ">
+    <header
+      className={`fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary ${
+        scrollY > 20 ? 'shadow-md shadow-gray-300' : ''
+      }`}
+    >
       {/* Desktop and tablet */}
       <div className="hidden md:flex w-full h-full items-center justify-between">
         <Link to={'/'}>
@@ -96,13 +145,22 @@ const Header = () => {
             )}
           </motion.div>
           <div className="relative">
-            <motion.img
-              whileTap={{ scale: 0.6 }}
-              className="w-10 min-w-[40px] h-10 min-h-[40px] object-cover rounded-full shadow-lg cursor-pointer"
-              src={user ? (user.photoURL ? user.photoURL : Avatar) : Avatar}
-              alt="userProfile"
-              onClick={login}
-            />
+            {user ? (
+              <motion.img
+                whileTap={{ scale: 0.6 }}
+                className="w-10 min-w-[40px] h-10 min-h-[40px] object-cover rounded-full shadow-lg cursor-pointer"
+                src={user ? (user.photoURL ? user.photoURL : Avatar) : Avatar}
+                alt="userProfile"
+                onClick={loginGoogle}
+              />
+            ) : (
+              <div
+                className=" text-orange-400 hover:text-textColor cursor-pointer"
+                onClick={showModal}
+              >
+                Login
+              </div>
+            )}
             {isMenu && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.6 }}
@@ -157,13 +215,22 @@ const Header = () => {
             )}
           </motion.div>
 
-          <motion.img
-            whileTap={{ scale: 0.6 }}
-            className="w-10 min-w-[40px] h-10 min-h-[40px] object-cover rounded-full shadow-lg cursor-pointer"
-            src={user ? user?.photoURL : Avatar}
-            alt="userProfile"
-            onClick={login}
-          />
+          {user ? (
+            <motion.img
+              whileTap={{ scale: 0.6 }}
+              className="w-10 min-w-[40px] h-10 min-h-[40px] object-cover rounded-full shadow-lg cursor-pointer"
+              src={user ? user?.photoURL : Avatar}
+              alt="userProfile"
+              onClick={loginGoogle}
+            />
+          ) : (
+            <div
+              className=" text-orange-400 hover:text-textColor cursor-pointer"
+              onClick={showModal}
+            >
+              Login
+            </div>
+          )}
           {isMenu && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
@@ -221,6 +288,9 @@ const Header = () => {
           )}
         </div>
       </div>
+      {modal && (
+        <Login loginGoogle={loginGoogle} loginFacebook={loginFacebook} showModal={showModal} />
+      )}
     </header>
   );
 };
