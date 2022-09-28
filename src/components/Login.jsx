@@ -232,8 +232,8 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
           </div>
           <form className="w-full flex flex-col gap-3">
             {/* firstName and LastName */}
-            <div className="flex gap-3 items-center justify-center">
-              <div className="flex gap-2 justify-center items-center text-sm font-light p-2  bg-slate-50 rounded-md">
+            <div className="flex flex-col md:flex-row gap-3 items-center justify-center">
+              <div className="flex w-full gap-2 justify-center items-center text-sm font-light p-2  bg-slate-50 rounded-md">
                 <RiUserShared2Line />
                 <div className="h-5 w-[1px] bg-gray-400"></div>
                 <input
@@ -245,7 +245,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="flex gap-2 justify-center items-center text-sm font-light p-2  bg-slate-50 rounded-md">
+              <div className="flex w-full gap-2 justify-center items-center text-sm font-light p-2  bg-slate-50 rounded-md">
                 <RiUserShared2Line />
                 <div className="h-5 w-[1px] bg-gray-400"></div>
                 <input
@@ -272,8 +272,8 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
               />
             </div>
             {/* Password and confirmPAssword */}
-            <div className="flex items-center justify-center gap-3">
-              <div className="flex justify-center items-center gap-2 text-sm font-light p-2 bg-slate-50 rounded-md">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+              <div className="flex w-full justify-center items-center gap-2 text-sm font-light p-2 bg-slate-50 rounded-md">
                 <RiLockPasswordLine />
                 <div className="h-5 w-[1px] bg-gray-400"></div>
                 <input
@@ -285,7 +285,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="flex justify-center items-center gap-2 text-sm font-light p-2 bg-slate-50 rounded-md">
+              <div className="flex w-full justify-center items-center gap-2 text-sm font-light p-2 bg-slate-50 rounded-md">
                 <RiLockPasswordLine />
                 <div className="h-5 w-[1px] bg-gray-400"></div>
                 <input
@@ -312,7 +312,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
           </form>
           <div className="w-full flex justify-end items-center">
             <button
-              className="p-1 px-10 rounded-full text-gray-50 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 drop-shadow-md hover:drop-shadow-lg hover:text-white"
+              className="p-1 px-10 w-full md:w-auto rounded-full text-gray-50 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 drop-shadow-md hover:drop-shadow-lg hover:text-white"
               onClick={handleSignUp}
             >
               Sign Up
