@@ -134,7 +134,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
           initial={{ opacity: 0, x: 200 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 200 }}
-          className={`absolute top-2 right-5 p-1 px-4 text-xs rounded-lg text-white 
+          className={`absolute z-10 top-2 right-5 p-1 px-4 text-xs rounded-lg text-white 
         ${
           alertStatus === 'danger'
             ? 'bg-red-500'
@@ -148,7 +148,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
       )}
       {!isSignUp ? (
         //login
-        <div className=" relative w-[400px] h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
+        <div className=" relative w-screen h-screen md:w-[400px] md:h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
           <div
             className="absolute top-0 right-0 flex items-center justify-center p-1 text-textColor hover:text-black cursor-pointer"
             onClick={showModal}
@@ -222,7 +222,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
         </div>
       ) : (
         //singUp
-        <div className=" relative w-[500px] h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
+        <div className=" relative w-screen h-screen md:w-[500px] md:h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
           <div
             className="absolute top-0 right-0 flex items-center justify-center p-1 text-textColor hover:text-black cursor-pointer"
             onClick={showModal}
