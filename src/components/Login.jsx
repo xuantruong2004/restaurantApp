@@ -126,7 +126,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
       initial={{ opacity: 0, y: 200 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 200 }}
-      className="absolute flex items-center justify-center w-screen h-screen  bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 top-0 left-0  p-2
+      className="absolute flex items-center justify-center w-screen h-screen  bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 top-0 left-0   md:p-2
 	 transition-all duration-100 ease-in-out"
     >
       {field && (
@@ -148,7 +148,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
       )}
       {!isSignUp ? (
         //login
-        <div className=" relative w-screen h-screen md:w-[400px] md:h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
+        <div className=" relative w-screen h-screen md:w-[400px] md:h-auto bg-slate-100 md:rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
           <div
             className="absolute top-0 right-0 flex items-center justify-center p-1 text-textColor hover:text-black cursor-pointer"
             onClick={showModal}
@@ -222,7 +222,7 @@ const Login = ({ loginFacebook, loginGoogle, showModal }) => {
         </div>
       ) : (
         //singUp
-        <div className=" relative w-screen h-screen md:w-[500px] md:h-auto bg-slate-100 rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
+        <div className=" relative w-screen h-screen md:w-[500px] md:h-auto bg-slate-100 md:rounded-lg p-8 px-10 flex flex-col items-center justify-center gap-5 text-headingColor">
           <div
             className="absolute top-0 right-0 flex items-center justify-center p-1 text-textColor hover:text-black cursor-pointer"
             onClick={showModal}
