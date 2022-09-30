@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <div className="flex flex-col  px-4  md:px-16 py-8 w-full gap-4 bg-slate-200">
-      <div className="flex flex-wrap md:flex-col  w-full md:gap-4">
+      <div className="flex flex-wrap md:flex-row  w-full md:gap-4">
         {/* shop */}
         <div className="flex flex-col w-[50%] md:w-[30%]  flex-1 gap-3">
           <div className="w-auto text-textColor font-semibold">
