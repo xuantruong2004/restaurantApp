@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateContainer, Header, MainContainer } from './components';
+import Footer from './components/Footer';
 import { actionType } from './context/reducer';
 import { useStateValue } from './context/StateProvider';
 import { getAllFoodItems } from './utils/firebaseFuntion';
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/createitem" element={<CreateContainer />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </AnimatePresence>
   );
